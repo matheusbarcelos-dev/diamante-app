@@ -1,0 +1,42 @@
+# ============================================================
+# SEGREDOS E DADOS: nunca vão para o GitHub (privado ou público)
+# ============================================================
+config.local.php
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+*.db
+data/*
+!data/.htaccess
+!data/index.html
+.env
+.env.*
+*.pem
+*.key
+
+# Backups e arquivos com token (ficam FORA do repositório)
+backup*/
+*backup*.zip
+*.log
+
+# Mídia pesada (o tutorial agora é pelo YouTube)
+aula/
+*.mp4
+*.mov
+
+# Pacotes de envio e pasta de portfólio gerada
+*.zip
+Diamante App - Portfolio/
+
+# Sistema e editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/extensions.json
+
+# Atalho de envio único
+ENVIAR-PARA-GITHUB.bat

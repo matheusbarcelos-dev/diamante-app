@@ -1,0 +1,81 @@
+DIAMANTE APP - INSTALAÇÃO 100% NA HOSTINGER (seudominio.com.br)
+
+1) DOMÍNIO
+   hPanel > Domínios > adicione/aponte seudominio.com.br para a hospedagem
+   (nameservers da Hostinger, ou registro.br apontando para eles).
+   Ative o SSL grátis (Let's Encrypt) e "Forçar HTTPS".
+
+2) PHP
+   hPanel > Avançado > Configuração do PHP: use PHP 8.1 ou superior (ideal 8.3).
+   Confirme que as extensões pdo_sqlite e sqlite3 estão ativas.
+
+3) ENVIAR OS ARQUIVOS
+   Gerenciador de Arquivos > public_html do domínio.
+   Selecione TODOS os itens desta pasta (incluindo .htaccess, data/ e assets/)
+   e arraste para dentro de public_html. O index.html deve ficar direto em public_html.
+   Se o .htaccess não aparecer, ative "mostrar arquivos ocultos" no Gerenciador.
+   Na PRIMEIRA instalação, o config.local.php (com SETUP_KEY, BACKUP_TOKEN e DADOS_KEY) vai junto; nunca o publique em outro lugar.
+   Ao ATUALIZAR o app depois, nunca apague nem substitua a pasta data/ (e o config.local.php):
+   ela guarda o banco com todo o historico. Envie por cima apenas os arquivos novos.
+   A hospedagem precisa da extensao PHP "zip" ativa (hPanel > Configuracao do PHP).
+
+4) PRIMEIRO ACESSO
+   Abra https://seudominio.com.br, crie sua conta e use "Virar administrador"
+   com a chave que está no config.local.php. Depois apague a chave do arquivo
+   ou troque por outra.
+
+5) BACKUP (fora da Hostinger)
+   Tudo fica salvo para sempre; nada e apagado de verdade (itens "apagados"
+   vao para um arquivo permanente). Para ter copia no seu PC ou no Drive:
+   - Manual: Administracao > Backup > Baixar backup agora (ZIP com o banco e
+     planilhas separadas por mes).
+   - Automatico: use os scripts da pasta "Diamante App - Backup" (fora do site).
+   Ative tambem os backups automaticos da Hostinger.
+
+ATUALIZAR O APP DEPOIS (sem perder contas, logins nem dados)
+   Tudo o que as pessoas criaram (contas, senhas, contatos, vendas, anamneses,
+   Clube, historico) mora no BANCO: um arquivo .sqlite dentro da pasta data/
+   (ou na pasta indicada em DATA_DIR). Os codigos do app NAO guardam dados.
+   Portanto, para atualizar:
+   1. No Gerenciador de Arquivos, envie os arquivos novos POR CIMA dos antigos
+      (clique em "substituir"). Pode enviar a pasta toda, EXCETO o que esta
+      abaixo.
+   2. NUNCA apague, renomeie nem substitua a pasta data/ (nem o arquivo .sqlite
+      dentro dela). A pasta data/ desta pasta de trabalho esta vazia de proposito:
+      enviar por cima dela nao apaga o banco.
+   3. NAO substitua o config.local.php que ja esta no servidor. Ele tem as chaves
+      e, se houver, o DATA_DIR. Se uma atualizacao pedir uma linha nova la
+      (BACKUP_TOKEN ou DADOS_KEY), ABRA o config.local.php do servidor e COLE as
+      linhas que estao no config.local.php desta pasta de trabalho.
+   4. NAO troque a DADOS_KEY depois de em uso: sem ela as senhas do Clube nao
+      abrem. Guarde uma copia dela.
+   5. Se a pasta do site mudar de lugar, o nome do banco pode mudar. Se um dia
+      o app abrir "vazio", nao crie nada: confira se o .sqlite antigo continua em
+      data/ e me chame antes de mexer.
+   O banco atualiza sozinho: colunas e tabelas novas sao criadas no primeiro
+   acesso depois do envio. Faca um backup (Administracao > Backup) antes de
+   cada atualizacao.
+
+6) CONFERIR (devem dar erro 403 ou 404)
+   seudominio.com.br/config.php | /config.local.php | /data/ | /LEIA-ME.txt
+   Se algum abrir, o .htaccess não foi enviado/lido.
+
+QUIZ DE OLEOS (anamnese)
+   Pagina publica: anamnese.html?c=SEU-CODIGO (o link e o QR ficam no app).
+   Fotos dos oleos e dos depoimentos: pasta assets/img/ (envie junto).
+   Cada resposta e salva na hora, mesmo que a pessoa pare no meio.
+
+CLUBE DE VANTAGENS
+   Aba "Clube" no app: gera o link de inscricao e o QR Code. A pagina publica
+   (clube.html) pede os dados etapa por etapa e salva a cada passo, mesmo que a
+   pessoa pare no meio. Meta: 3 pessoas por semana (conta quando conclui).
+   A senha da pessoa e guardada cifrada (chave DADOS_KEY no config.local.php) e so
+   o administrador consegue ver: Administracao > Clube > Ver senha.
+
+HISTORICO POR MES
+   Menu "Historico" (cada consultor) e Administracao > Historico por mes (todos),
+   com planilha de cada mes.
+
+SEGURANÇA / LGPD
+   O app guarda dados pessoais de contatos e anamneses (saúde): use HTTPS,
+   senha forte de admin e avise as pessoas sobre o uso dos dados.
